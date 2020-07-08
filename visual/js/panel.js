@@ -83,28 +83,6 @@ var Panel = {
             }
             break;
 
-        case 'bestfirst_header':
-            allowDiagonal = typeof $('#bestfirst_section ' +
-                                     '.allow_diagonal:checked').val() !== 'undefined';
-            biDirectional = typeof $('#bestfirst_section ' +
-                                     '.bi-directional:checked').val() !== 'undefined';
-            dontCrossCorners = typeof $('#bestfirst_section ' +
-                                     '.dont_cross_corners:checked').val() !=='undefined';
-            heuristic = $('input[name=bestfirst_heuristic]:checked').val();
-            if (biDirectional) {
-                finder = new PF.BiBestFirstFinder({
-                    allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners,
-                    heuristic: PF.Heuristic[heuristic]
-                });
-            } else {
-                finder = new PF.BestFirstFinder({
-                    allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners,
-                    heuristic: PF.Heuristic[heuristic]
-                });
-            }
-            break;
 
         case 'dijkstra_header':
             allowDiagonal = typeof $('#dijkstra_section ' +
@@ -124,57 +102,6 @@ var Panel = {
                     dontCrossCorners: dontCrossCorners
                 });
             }
-            break;
-
-        case 'jump_point_header':
-            trackRecursion = typeof $('#jump_point_section ' +
-                                     '.track_recursion:checked').val() !== 'undefined';
-            heuristic = $('input[name=jump_point_heuristic]:checked').val();
-
-            finder = new PF.JumpPointFinder({
-              trackJumpRecursion: trackRecursion,
-              heuristic: PF.Heuristic[heuristic],
-              diagonalMovement: PF.DiagonalMovement.IfAtMostOneObstacle
-            });
-            break;
-        case 'orth_jump_point_header':
-            trackRecursion = typeof $('#orth_jump_point_section ' +
-                                     '.track_recursion:checked').val() !== 'undefined';
-            heuristic = $('input[name=orth_jump_point_heuristic]:checked').val();
-
-            finder = new PF.JumpPointFinder({
-              trackJumpRecursion: trackRecursion,
-              heuristic: PF.Heuristic[heuristic],
-              diagonalMovement: PF.DiagonalMovement.Never
-            });
-            break;
-        case 'ida_header':
-            allowDiagonal = typeof $('#ida_section ' +
-                                     '.allow_diagonal:checked').val() !== 'undefined';
-            dontCrossCorners = typeof $('#ida_section ' +
-                                     '.dont_cross_corners:checked').val() !=='undefined';
-            trackRecursion = typeof $('#ida_section ' +
-                                     '.track_recursion:checked').val() !== 'undefined';
-
-            heuristic = $('input[name=jump_point_heuristic]:checked').val();
-
-            weight = parseInt($('#ida_section input[name=astar_weight]').val()) || 1;
-            weight = weight >= 1 ? weight : 1; /* if negative or 0, use 1 */
-
-            timeLimit = parseInt($('#ida_section input[name=time_limit]').val());
-
-            // Any non-negative integer, indicates "forever".
-            timeLimit = (timeLimit <= 0 || isNaN(timeLimit)) ? -1 : timeLimit;
-
-            finder = new PF.IDAStarFinder({
-              timeLimit: timeLimit,
-              trackRecursion: trackRecursion,
-              allowDiagonal: allowDiagonal,
-              dontCrossCorners: dontCrossCorners,
-              heuristic: PF.Heuristic[heuristic],
-              weight: weight
-            });
-
             break;
         }
 
