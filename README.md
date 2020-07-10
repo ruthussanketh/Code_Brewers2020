@@ -7,7 +7,7 @@ Introduction
 
 The aim of this project is to build a pathfinder that finds the shortest path between two or multiple points and integrate it into finding and solving more complex problems that may be encountered by a Mars Rover on Mars.
 
-It comes along with an [online demo](https://github.com/ruthussanketh/Code_Brewers2020/visual/index.html) to show how the algorithms executes.
+It comes along with an [online demo](https://github.com/ruthussanketh/Code_Brewers2020/visual/) to show how the algorithms executes.
 
 Server
 ------
@@ -178,7 +178,7 @@ Layout:
 
     .
     |-- benchmark    # benchmarks
-    |-- info         # user guides
+    |-- docs         # user guides
     |-- src          # source code (algorithms)
     |-- test         # test scripts	  
     |-- visual       # visualization
