@@ -14,8 +14,6 @@ The `diagonalMovement` option can take any of the following values:
 
 * Always
 * Never
-* IfAtMostOneObstacle
-* OnlyWhenNoObstacles
 
 To understand them consider the following four simple maps labelled A, B, C and
 D. A has no obstacles for diagonal movement from green to orange cell, B and C
@@ -28,12 +26,3 @@ of the obstacles when moving diagonally.
 ## Never
 With this option PathFinding.js will only find straight paths and will never
 find any diagonal paths.
-
-## IfAtMostOneObstacle
-With this option PathFinding.js will find diagonal paths only if there is at
-most one obstacle for the diagonal path.
-
-
-## OnlyWhenNoObstacles
-With this option PathFinding.js will find diagonal paths only if there are no
-obstacles for the diagonal path.

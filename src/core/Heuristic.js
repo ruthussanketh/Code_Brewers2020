@@ -25,9 +25,11 @@ module.exports = {
   },
 
   /**
-   * Octile distance.
+   * Chebyshev distance.
    * @param {number} dx - Difference in x.
    * @param {number} dy - Difference in y.
-   * @return {number} sqrt(dx * dx + dy * dy) for grids
+   * @return {number} max(xdist, ydist) for grids
    */
+   chebyshev: function(dx, dy) {
+       return max(Math.sqrt(dx * dx), Math.sqrt(dy * dy));
 };

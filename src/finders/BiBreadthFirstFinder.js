@@ -7,29 +7,21 @@ var DiagonalMovement = require('../core/DiagonalMovement');
  * @param {object} opt
  * @param {boolean} opt.allowDiagonal Whether diagonal movement is allowed.
  *     Deprecated, use diagonalMovement instead.
- * @param {boolean} opt.dontCrossCorners Disallow diagonal movement touching
- *     block corners. Deprecated, use diagonalMovement instead.
  * @param {DiagonalMovement} opt.diagonalMovement Allowed diagonal movement.
  */
 function BiBreadthFirstFinder(opt) {
     opt = opt || {};
     this.allowDiagonal = opt.allowDiagonal;
-    this.dontCrossCorners = opt.dontCrossCorners;
     this.diagonalMovement = opt.diagonalMovement;
 
     if (!this.diagonalMovement) {
         if (!this.allowDiagonal) {
             this.diagonalMovement = DiagonalMovement.Never;
         } else {
-            if (this.dontCrossCorners) {
-                this.diagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
-            } else {
-                this.diagonalMovement = DiagonalMovement.IfAtMostOneObstacle;
+                this.diagonalMovement = DiagonalMovement.Always;
             }
         }
     }
-}
-
 
 /**
  * Find and return the the path.

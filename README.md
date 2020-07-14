@@ -85,7 +85,7 @@ Currently there are 3 path-finders bundled in this library, along with their bi-
 *  `BiDijkstraFinder`
 
 -> A* finder is guaranteed to find the shortest path since the heuristic used is admissible, i.e, we use the Manhattan heuristic.
--> Dijkstra finder is guaranteed to find the shortest path since the heuristic is zero.
+-> Dijkstra finder is guaranteed to find the shortest path since the edge costs are positive.
 -> Breadth First Finder is guaranteed to find the shortest path since the nodes are unweighted.
 
 To build a path-finder, say, the `AStarFinder`:
