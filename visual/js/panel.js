@@ -15,6 +15,9 @@ var Panel = {
         $('#hide_instructions').click(function() {
             $('#instructions_panel').slideUp();
         });
+        $('#hide_algorithms').click(function() {
+            $('#algorithm_panel').slideUp();
+        });
         $('#play_panel').css({
             top: $algo.offset().top + $algo.outerHeight() + 20
         });

@@ -18,7 +18,7 @@ describe('Grid', function() {
 
             grid.nodes.length.should.equal(height);
             for (var i = 0; i < height; ++i) {
-                grid.nodes[i].length.should.equal(width); 
+                grid.nodes[i].length.should.equal(width);
             }
         });
 
@@ -26,6 +26,14 @@ describe('Grid', function() {
             for (var i = 0; i < height; ++i) {
                 for (var j = 0; j < width; ++j) {
                     grid.isWalkableAt(j, i).should.be.true;
+                }
+            }
+        });
+
+        it('should set all nodes\' stop attribute', function() {
+            for (var i = 0; i < height; ++i) {
+                for (var j = 0; j < width; ++j) {
+                    grid.isStopAt(j, i).should.be.false;
                 }
             }
         });
@@ -65,7 +73,7 @@ describe('Grid', function() {
 
             grid.nodes.length.should.equal(height);
             for (var i = 0; i < height; ++i) {
-                grid.nodes[i].length.should.equal(width); 
+                grid.nodes[i].length.should.equal(width);
             }
         });
 
@@ -79,18 +87,43 @@ describe('Grid', function() {
             });
         });
 
+        it('should initiate all nodes\' stop attribute', function() {
+            enumPos(function(x, y, g) {
+                if (matrix[y][x]) {
+                    g.isStopAt(x, y).should.be.false;
+                } else {
+                    g.isStopAt(x, y).should.be.true;
+                }
+            });
+        });
+
         it('should be able to set nodes\' walkable attribute', function() {
             enumPos(function(x, y) {
-                grid.setWalkableAt(x, y, false); 
+                grid.setWalkableAt(x, y, false);
             });
             enumPos(function(x, y) {
                 grid.isWalkableAt(x, y).should.be.false;
             })
             enumPos(function(x, y) {
-                grid.setWalkableAt(x, y, true); 
+                grid.setWalkableAt(x, y, true);
             });
             enumPos(function(x, y) {
                 grid.isWalkableAt(x, y).should.be.true;
+            })
+        });
+
+        it('should be able to set nodes\' stop attribute', function() {
+            enumPos(function(x, y) {
+                grid.setStopAt(x, y, false);
+            });
+            enumPos(function(x, y) {
+                grid.isStopAt(x, y).should.be.false;
+            })
+            enumPos(function(x, y) {
+                grid.setStopAt(x, y, true);
+            });
+            enumPos(function(x, y) {
+                grid.isStopAt(x, y).should.be.true;
             })
         });
 

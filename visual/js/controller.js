@@ -83,8 +83,18 @@ var Controller = StateMachine.create({
             to:   'erasingWall'
         },
         {
+            name: 'drawStop',
+            from: ['ready', 'finished'],
+            to:   'drawingStop'
+        },
+        {
+            name: 'eraseStop',
+            from: ['ready', 'finished'],
+            to:   'erasingStop'
+        },
+        {
             name: 'rest',
-            from: ['draggingStart', 'draggingEnd', 'drawingWall', 'erasingWall'],
+            from: ['draggingStart', 'draggingEnd', 'drawingWall', 'erasingWall', 'drawingStop', 'erasingStop'],
             to  : 'ready'
         },
     ],
@@ -126,6 +136,14 @@ $.extend(Controller, {
     },
     oneraseWall: function(event, from, to, gridX, gridY) {
         this.setWalkableAt(gridX, gridY, true);
+        // => erasingWall
+    },
+    ondrawStop: function(event, from, to, gridX, gridY) {
+        this.setStopAt(gridX, gridY, true);
+        // => drawingWall
+    },
+    oneraseStop: function(event, from, to, gridX, gridY) {
+        this.setStopAt(gridX, gridY, false);
         // => erasingWall
     },
     onsearch: function(event, from, to) {
@@ -214,6 +232,11 @@ $.extend(Controller, {
         }, {
             id: 3,
             text: 'Clear Walls',
+            enabled: true,
+            callback: $.proxy(this.reset, this),
+        }, {
+            id: 4,
+            text: 'Clear Stops',
             enabled: true,
             callback: $.proxy(this.reset, this),
         });
@@ -377,6 +400,7 @@ $.extend(Controller, {
     clearAll: function() {
         this.clearFootprints();
         View.clearBlockedNodes();
+        View.clearStopNodes();
     },
     buildNewGrid: function() {
         this.grid = new PF.Grid(this.gridSize[0], this.gridSize[1]);
@@ -401,6 +425,13 @@ $.extend(Controller, {
         }
         if (this.can('eraseWall') && !grid.isWalkableAt(gridX, gridY)) {
             this.eraseWall(gridX, gridY);
+        }
+        if (this.can('drawStop') && !grid.isStopAt(gridX, gridY)) {
+            this.drawStop(gridX, gridY);
+            return;
+        }
+        if (this.can('eraseStop') && grid.isStopAt(gridX, gridY)) {
+            this.eraseStop(gridX, gridY);
         }
     },
     mousemove: function(event) {
@@ -430,6 +461,12 @@ $.extend(Controller, {
         case 'erasingWall':
             this.setWalkableAt(gridX, gridY, true);
             break;
+        case 'drawingStop':
+                this.setStopAt(gridX, gridY, true);
+                break;
+        case 'erasingStop':
+                this.setStopAt(gridX, gridY, false);
+                break;
         }
     },
     mouseup: function(event) {
@@ -494,6 +531,10 @@ $.extend(Controller, {
     setWalkableAt: function(gridX, gridY, walkable) {
         this.grid.setWalkableAt(gridX, gridY, walkable);
         View.setAttributeAt(gridX, gridY, 'walkable', walkable);
+    },
+    setStopAt: function(gridX, gridY, stop) {
+        this.grid.setStopAt(gridX, gridY, stop);
+        View.setAttributeAt(gridX, gridY, 'stop', stop);
     },
     isStartPos: function(gridX, gridY) {
         return gridX === this.startX && gridY === this.startY;

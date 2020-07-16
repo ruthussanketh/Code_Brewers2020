@@ -41,9 +41,9 @@ function pathTest(opt) {
             grid = new PF.Grid(width, height, matrix);
 
             test(
-                scen.startX, scen.startY, 
-                scen.endX, scen.endY, 
-                grid, 
+                scen.startX, scen.startY,
+                scen.endX, scen.endY,
+                grid,
                 scen.expectedLength
             );
         }
@@ -78,32 +78,11 @@ pathTests({
     name: 'BiDijkstra',
     finder: new PF.BiDijkstraFinder(),
     optimal: true
-});
-
-// finders NOT guaranteed to find the shortest path
-pathTests({
+}, {
     name: 'BiAStar',
     finder: new PF.BiAStarFinder(),
     optimal: false
 }, {
-    name: 'BestFirst',
-    finder: new PF.BestFirstFinder(),
-    optimal: false
-}, {
-    name: 'BiBestFirst',
-    finder: new PF.BiBestFirstFinder(),
-    optimal: false
-}, {
-    name: 'IDAStar',
-    finder: new PF.IDAStarFinder(),
-    optimal: false
-}, {
-    name: 'JPFMoveDiagonallyIfAtMostOneObstacle',
-    finder: new PF.JumpPointFinder({
-      diagonalMovement: PF.DiagonalMovement.IfAtMostOneObstacle
-    }),
-    optimal: false
-},  {
     name: 'JPFNeverMoveDiagonally',
     finder: new PF.JumpPointFinder({
       diagonalMovement: PF.DiagonalMovement.Never

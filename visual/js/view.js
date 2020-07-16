@@ -13,6 +13,10 @@ var View = {
             fill: 'rgba(0, 0, 128, 0.4)',
             'stroke-opacity': 0.5,
         },
+        stop: {
+            fill: '#EC1A89',
+            'stroke-opacity': 0.9,
+        },
         start: {
             fill: 'rgba(0, 128, 0, 0.9)',
             'stroke-opacity': 0.2,
@@ -153,6 +157,10 @@ var View = {
             color = value ? nodeStyle.normal.fill : nodeStyle.blocked.fill;
             this.setWalkableAt(gridX, gridY, value);
             break;
+        case 'stop':
+            color = value ? nodeStyle.normal.fill : nodeStyle.stop.fill;
+            this.setStopAt(gridX, gridY, value);
+            break;
         case 'opened':
             this.colorizeNode(this.rects[gridY][gridX], nodeStyle.opened.fill);
             this.setCoordDirty(gridX, gridY, true);
@@ -215,6 +223,35 @@ var View = {
             this.zoomNode(node);
         }
     },
+    setStopAt: function(gridX, gridY, value) {
+        var node, i, stopNodes = this.stopNodes;
+        if (!stopNodes) {
+            stopNodes = this.stopNodes = new Array(this.numRows);
+            for (i = 0; i < this.numRows; ++i) {
+                stopNodes[i] = [];
+            }
+        }
+        node = stopNodes[gridY][gridX];
+        if (value) {
+            // clear stop node
+            if (node) {
+                this.colorizeNode(node, this.rects[gridY][gridX].attr('fill'));
+                this.zoomNode(node);
+                setTimeout(function() {
+                    node.remove();
+                }, this.nodeZoomEffect.duration);
+                stopNodes[gridY][gridX] = null;
+            }
+        } else {
+            // draw stop node
+            if (node) {
+                return;
+            }
+            node = stopNodes[gridY][gridX] = this.rects[gridY][gridX].clone();
+            this.colorizeNode(node, this.nodeStyle.stop.fill);
+            this.zoomNode(node);
+        }
+    },
     clearFootprints: function() {
         var i, x, y, coord, coords = this.getDirtyCoords();
         for (i = 0; i < coords.length; ++i) {
@@ -235,6 +272,20 @@ var View = {
                 if (blockedNodes[i][j]) {
                     blockedNodes[i][j].remove();
                     blockedNodes[i][j] = null;
+                }
+            }
+        }
+    },
+    clearStopNodes: function() {
+        var i, j, stopNodes = this.stopNodes;
+        if (!stopNodes) {
+            return;
+        }
+        for (i = 0; i < this.numRows; ++i) {
+            for (j = 0 ;j < this.numCols; ++j) {
+                if (stopNodes[i][j]) {
+                    stopNodes[i][j].remove();
+                    stopNodes[i][j] = null;
                 }
             }
         }
