@@ -140,11 +140,11 @@ $.extend(Controller, {
     },
     ondrawStop: function(event, from, to, gridX, gridY) {
         this.setStopAt(gridX, gridY, true);
-        // => drawingWall
+        // => drawingStop
     },
     oneraseStop: function(event, from, to, gridX, gridY) {
         this.setStopAt(gridX, gridY, false);
-        // => erasingWall
+        // => erasingStop
     },
     onsearch: function(event, from, to) {
         var grid,
@@ -237,10 +237,20 @@ $.extend(Controller, {
         }, {
             id: 4,
             text: 'Clear Stops',
-            enabled: true,
+            enabled: false,
+            callback: $.proxy(this.reset, this),
+        }, {
+            id: 5,
+            text: 'Select Stops',
+            enabled: false,
+            callback: $.proxy(this.reset, this),
+        }, {
+            id: 6,
+            text: 'Select Walls',
+            enabled: false,
             callback: $.proxy(this.reset, this),
         });
-        // => [starting, draggingStart, draggingEnd, drawingStart, drawingEnd]
+        // => [starting, draggingStart, draggingEnd]
     },
     onstarting: function(event, from, to) {
         console.log('=> starting');
