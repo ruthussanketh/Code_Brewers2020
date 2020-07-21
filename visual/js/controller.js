@@ -236,17 +236,12 @@ $.extend(Controller, {
             callback: $.proxy(this.reset, this),
         }, {
             id: 4,
-            text: 'Clear Stops',
-            enabled: false,
-            callback: $.proxy(this.reset, this),
+            text: 'Select Stops',
+            enabled: true,
+            callback: $.proxy(this.drawStop, this),
         }, {
             id: 5,
-            text: 'Select Stops',
-            enabled: false,
-            callback: $.proxy(this.reset, this),
-        }, {
-            id: 6,
-            text: 'Select Walls',
+            text: 'Clear Stops',
             enabled: false,
             callback: $.proxy(this.reset, this),
         });
@@ -319,6 +314,11 @@ $.extend(Controller, {
             text: 'Clear Path',
             enabled: true,
             callback: $.proxy(this.clear, this),
+        }, {
+            id: 4,
+            text: 'Select Walls',
+            enabled: true,
+            callback: $.proxy(this.drawWall, this),
         });
     },
 

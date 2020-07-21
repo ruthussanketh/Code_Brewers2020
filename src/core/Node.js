@@ -8,7 +8,7 @@
  * @param {boolean} [walkable] - Whether this node is walkable.
  * @param {boolean} [stop] - Whether this node is a stop point.
  */
-function Node(x, y, walkable) {
+function Node(x, y, walkable, stop) {
     /**
      * The x coordinate of the node on the grid.
      * @type number
@@ -28,7 +28,7 @@ function Node(x, y, walkable) {
      * Whether this node is a stop point or not.
      * @type boolean
      */
-    this.stop = (stop === undefined ? true : stop);
+    this.stop = (stop === undefined ? false : stop);
 
 }
 

@@ -158,7 +158,7 @@ var View = {
             this.setWalkableAt(gridX, gridY, value);
             break;
         case 'stop':
-            color = value ? nodeStyle.normal.fill : nodeStyle.stop.fill;
+            color = value ? nodeStyle.stop.fill : nodeStyle.normal.fill;
             this.setStopAt(gridX, gridY, value);
             break;
         case 'opened':
@@ -225,14 +225,22 @@ var View = {
     },
     setStopAt: function(gridX, gridY, value) {
         var node, i, stopNodes = this.stopNodes;
-        if (!stopNodes) {
+        if (stopNodes) {
             stopNodes = this.stopNodes = new Array(this.numRows);
             for (i = 0; i < this.numRows; ++i) {
                 stopNodes[i] = [];
             }
         }
         node = stopNodes[gridY][gridX];
-        if (value) {
+        if (!value) {
+          //draw stop node
+          if (node) {
+              return;
+          }
+          node = stopNodes[gridY][gridX] = this.rects[gridY][gridX].clone();
+          this.colorizeNode(node, this.nodeStyle.stop.fill);
+          this.zoomNode(node);
+        } else {
             // clear stop node
             if (node) {
                 this.colorizeNode(node, this.rects[gridY][gridX].attr('fill'));
@@ -242,14 +250,6 @@ var View = {
                 }, this.nodeZoomEffect.duration);
                 stopNodes[gridY][gridX] = null;
             }
-        } else {
-            // draw stop node
-            if (node) {
-                return;
-            }
-            node = stopNodes[gridY][gridX] = this.rects[gridY][gridX].clone();
-            this.colorizeNode(node, this.nodeStyle.stop.fill);
-            this.zoomNode(node);
         }
     },
     clearFootprints: function() {
