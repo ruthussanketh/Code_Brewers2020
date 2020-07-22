@@ -8,7 +8,10 @@ var DiagonalMovement = require('./DiagonalMovement');
  * @param {number} height Number of rows of the grid.
  * @param {Array<Array<(number|boolean)>>} [matrix] - A 0-1 matrix
  *     representing the walkable status of the nodes(0 or false for walkable).
- *     If the matrix is not supplied, all the nodes will be walkable.  */
+ *     If the matrix is not supplied, all the nodes will be walkable.
+ * @param {Array<Array<(number|boolean)>>} [matrix] - A 0-1 matrix
+ *     representing the stop status of the nodes(1 or true for stop).
+ *     If the matrix is not supplied, all the nodes will be not stop nodes.  */
 function Grid(width_or_matrix, height, matrix) {
     var width;
 
@@ -44,6 +47,8 @@ function Grid(width_or_matrix, height, matrix) {
  * @param {number} height
  * @param {Array<Array<number|boolean>>} [matrix] - A 0-1 matrix representing
  *     the walkable status of the nodes.
+ * @param {Array<Array<number|boolean>>} [matrix] - A 0-1 matrix representing
+ *     the stop status of the nodes.
  * @see Grid
  */
 Grid.prototype._buildNodes = function(width, height, matrix) {
@@ -91,11 +96,14 @@ Grid.prototype.getNodeAt = function(x, y) {
  * @param {number} x - The x coordinate of the node.
  * @param {number} y - The y coordinate of the node.
  * @return {boolean} - The walkability of the node.
+ * @return {boolean} - The stop status of the node.
  */
 Grid.prototype.isWalkableAt = function(x, y) {
     return this.isInside(x, y) && this.nodes[y][x].walkable;
 };
-
+Grid.prototype.isStopAt = function(x, y) {
+    return this.isInside(x, y) && this.nodes[y][x].stop;
+};
 
 /**
  * Determine whether the position is inside the grid.
@@ -117,9 +125,13 @@ Grid.prototype.isInside = function(x, y) {
  * @param {number} x - The x coordinate of the node.
  * @param {number} y - The y coordinate of the node.
  * @param {boolean} walkable - Whether the position is walkable.
+ * @param {boolean} stop - Whether the position is a stop point or not.
  */
 Grid.prototype.setWalkableAt = function(x, y, walkable) {
     this.nodes[y][x].walkable = walkable;
+};
+Grid.prototype.setStopAt = function(x, y, stop) {
+    this.nodes[y][x].stop = stop;
 };
 
 /**
