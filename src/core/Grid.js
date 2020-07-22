@@ -11,7 +11,7 @@ var DiagonalMovement = require('./DiagonalMovement');
  *     If the matrix is not supplied, all the nodes will be walkable.
  * @param {Array<Array<(number|boolean)>>} [matrix] - A 0-1 matrix
  *     representing the stop status of the nodes(1 or true for stop).
- *     If the matrix is not supplied, all the nodes will be not stop nodes.  */
+ *     If the matrix is not supplied, all the nodes will be non - stop nodes.  */
 function Grid(width_or_matrix, height, matrix) {
     var width;
 
