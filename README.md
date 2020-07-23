@@ -1,6 +1,6 @@
-PathFinder.js - Team Code Brewers, IIT Kharagpur
+PathFinder.js - Team Code_Brewers, IIT Kharagpur
 ==============
-#### The Mars Colonization Program to build a pathfinder with Acehacker, in Engage  2020 ####
+#### The Mars Colonization Program to build a virtual pathfinder with Acehacker, in Microsoft Engage  2020 ####
 
 Introduction
 ------------
@@ -11,210 +11,50 @@ To view an online demo of the execution of the pathfinders, download the repo, a
 
 online demo - (https://ruthussanketh.github.io/Code_Brewers2020/visual)
 
-Server
-------
+A Mars Rover is a rover whose ultimate aim it to be able to explore the surface of Mars autonomously. It's uses may be to collect data of the surface for Mars, such as photos, rocks, sand samples, etc., which may later be used in the colonization of the planet. We built this virtual pathfinder with the aim to use it in a rover to perform multiple functionalities -
 
-If you want to use it in Node.js, you may install it via `npm`.
+1. Finding the shortest path between 2 points, using multiple parameters of distance estimation, and multiple algorithms to find such path. This could make the rover more functional and productive in lesser time.
 
-```bash
-npm install pathfinding
-```
+2. Finding the closest point at which data or samples can be found, thereby saving time, energy, and power, by calculating the distance to each of the points at which data is available and finding the closest point.
 
-Then, in your program:
+3. Finding the least expensive path in terms of computational power as well as energy and resources, by finding the shortest path which can cover multiple data collection points, while finishing at any point.
 
-```javascript
-var PF = require('pathfinding');
-```
+4. Finding the least expensive path, in terms of computational power as well as energy and resources, by finding the shortest path to cover multiple data collection points, and circuit back to the spacecraft's collection point, a.k.a, the end point.
 
-See the `Basic Usage` section below for usage details.
+The algorithms which have been implemented to find the shortest path -
+1. Breadth First Finder
+2. A* Finder
+3. Dijkstra Finder
+4. Bi Breadth First Finder
+5. Bi A* Finder
+6. Bi Dijkstra Finder,
 
+where the Bi prefix enables the algorithm to be much faster as it searches for an optimal path from both the start and the end points.
 
-Browser
--------
+Diagonal movement has also been implemented in the algorithms, wherein enabling the diagonal movement allows the path to go from one corner of a node to another, and shorter paths can be found, where the measure of length is the number of nodes crossed to reach the destination.
 
-If you have bower installed then you can install it with the following command:
+The algorithms implemented to find closest destination -
+1. Breadth First Finder
+2. A* Finder
 
-```bash
-bower install pathfinding
-```
+The algorithms implemented to find the least expensive path, while ending at any point -
+1. Prim's Finder
+2. Floyd Warshall's Finder
+3. Brute Breadth First Finder
+4. Brute A* Finder
 
-By default bower will install pathfinding under the bower_components folder, so to include it in your page do something like:
+The algorithms implemented to find the least expensive path with a definite end point -
+1. Floyd Warshall's Finder
+2. Brute Breadth First Finder
+3. Brute A* Finder
 
-```html
-<script type="text/javascript" src="path/to/bower_components/pathfinding/pathfinding-browser.min.js"></script>
-```
+Supporting docs, including a high level diagram, a low level diagram, and control flow explanations of each of the algorithms used above been included in the ./docs folder. 
 
-Basic Usage
------------
+Some of the visual code was used from an existing, free, and open repository, whose license has been included below.
 
-To build a grid-map of width 6 and height 4:
-
-```javascript
-var grid = new PF.Grid(6, 4);
-```
-By default, all the nodes in the grid will be able to be walked through.
-To set whether a node at a given coordinate is walkable or not, use the `setWalkableAt` method.
-
-For example, to set the node at (0, 1) to be un-walkable, where 0 is the x coordinate (from left to right), and
-1 is the y coordinate (from up to down):
-
-```javascript
-grid.setWalkableAt(0, 1, false);
-```
-
-You may also pass in a matrix while instantiating the `PF.Grid` class.
-It will initiate all the nodes in the grid with the same walkability indicated by the matrix.
-0 for walkable while 1 for blocked.
-
-```javascript
-var matrix = [
-    [0, 0, 0, 1, 0],
-    [1, 0, 0, 0, 1],
-    [0, 0, 1, 0, 0],
-];
-var grid = new PF.Grid(matrix);
-```
-
-Currently there are 3 path-finders bundled in this library, along with their bi-directional counterparts, namely:
-
-*  `AStarFinder`
-*  `BreadthFirstFinder`
-*  `DijkstraFinder`
-*  `BiAStarFinder`
-*  `BiBreadthFirstFinder`
-*  `BiDijkstraFinder`
-
--> A* finder is guaranteed to find the shortest path since the heuristic used is admissible, i.e, we use the Manhattan heuristic.
--> Dijkstra finder is guaranteed to find the shortest path since the edge costs are positive.
--> Breadth First Finder is guaranteed to find the shortest path since the nodes are unweighted.
-
-To build a path-finder, say, the `AStarFinder`:
-
-```javascript
-var finder = new PF.AStarFinder();
-```
-
-To find a path from (1, 2) to (4, 2), (Note: both the start point and end point should be walkable):
-
-```javascript
-var path = finder.findPath(1, 2, 4, 2, grid);
-```
-
-`path` will be an array of coordinates including both the start and end positions.
-
-For the `matrix` defined previously, the `path` will be:
-
-```javascript
-[ [ 1, 2 ], [ 1, 1 ], [ 2, 1 ], [ 3, 1 ], [ 3, 2 ], [ 4, 2 ] ]
-```
-
-Be aware that `grid` will be modified in each path-finding, and will not be usable afterwards. If you want to use a single grid multiple times, create a clone for it before calling `findPath`.
-
-```javascript
-var gridBackup = grid.clone();
-```
-
-Advanced Usage
---------------
-
-When instantiating path-finders, you may pass in additional parameters to indicate which specific strategies to use.
-
-For all path-finders, you may indicate whether diagonal movement is allowed. The default value is `false`, which means that the path can only go orthogonally.
-
-In order to enable diagonal movement:
-
-```javascript
-var finder = new PF.AStarFinder({
-    allowDiagonal: true
-});
-```
-
-You can also choose which heuristic function to use, from two heuristics - Manhattan, or Euclidean. Take a look at the ./core/Heuristic file to get a hang of what these heuristics do.
-
-To use the Manhattan heuristic:
-
-```javascript
-var finder = new PF.AStarFinder({
-    heuristic: PF.Heuristic.manhattan
-});
-```
-
-To build a `BreadthFirstFinder` with diagonal movement allowed and a custom heuristic function:
-
-```javascript
-var finder = new PF.BestFirstFinder({
-    allowDiagonal: true,
-    heuristic: function(dx, dy) {
-        return Math.min(dx, dy);
-    }
-});
-```
-
-To smoothen the path, you may use `PF.Util.smoothenPath`. This routine will return
-a new path with the original one unmodified.
-
-```javascript
-var newPath = PF.Util.smoothenPath(grid, path);
-```
-
-Note that the new path will be compressed as well, i.e. if the original path is
-`[[0, 1], [0, 2], [0, 3], [0, 4]]`, then the new path will be `[[0, 1], [0, 4]]`.
-
-To just compress a path without smoothing it, you may use `PF.Util.compressPath`.
-
-```javascript
-var newPath = PF.Util.compressPath(path);
-```
-
-To expand the compressed path like `[[0, 1], [0, 4]]` back to `[[0, 1], [0, 2], [0, 3], [0, 4]]`,
-you may use `PF.Util.expandPath`.
-
-```javascript
-var newPath = PF.Util.expandPath(path);
-```
-
-Development
-------------
-
-Layout:
-
-    .
-    |-- benchmark    # benchmarks
-    |-- docs         # user guides
-    |-- src          # source code (algorithms)
-    |-- test         # test scripts	  
-    |-- visual       # visualization
-
-Make sure you have `node.js` installed, then use `npm` to install the dependencies:
-
-    npm install -d
-
-The build system uses gulp, so make sure you have it installed:
-
-    npm install -d -g gulp
-
-To build the browser distribution:
-
-    gulp compile
-
-To run the tests
-(algorithms only, not including the visualization) with
-[mocha](http://mochajs.org/) and [should.js](https://github.com/visionmedia/should.js)
-First install mocha:
-
-    npm install -d -g mocha
-
-Then run the tests:
-
-    gulp test
-
-To run the benchmarks:
-
-    gulp bench
-
-Or if you want to automate everything xD, the default gulp task does everything(except running the benchmarks):
-
-    gulp
+More possible functionalities which can be implemented in the future -
+1. Weighted points, where the weights stand for the safety of that position on Mars, For example, a crater, or a very hot area will have higher weight, as it is more dangerous for the rover to go over such terrain. An algorithm may then be implemented to optimize for the weighted path, leading to finding the safest path for the rover to follow.
+2. Treasure points, where rich samples of sand, etc., can be found, but where the rover need not necessarily go. An algorithm can be implemented to maximize the rover's reward/treasure, while also minimizing the distance travelled, basically, an optimum path by varying 2 parameters.
 
 License
 -------

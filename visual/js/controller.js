@@ -4,6 +4,7 @@
  * See https://github.com/jakesgordon/javascript-state-machine
  * for the document of the StateMachine module.
  */
+var w=1, s=0;
 var Controller = StateMachine.create({
     initial: 'none',
     events: [
@@ -236,22 +237,12 @@ $.extend(Controller, {
             callback: $.proxy(this.reset, this),
         }, {
             id: 4,
-            text: 'Draw Walls',
-            enabled: true,
-            callback: $.proxy(this.willdrawWall, this),
-        }, {
-            id: 5,
             text: 'Draw Stops',
             enabled: true,
             callback: $.proxy(this.willdrawStop, this),
         });
         // => [starting, draggingStart, draggingEnd]
     },
-    willdrawWall: function () {
-       w = 1;
-       s = 0;
-       console.log('drawWall');
-   },
    willdrawStop: function () {
        w = 0;
        s = 1;
@@ -429,13 +420,21 @@ $.extend(Controller, {
         if (this.can('eraseWall') && !grid.isWalkableAt(gridX, gridY) && w) {
             this.eraseWall(gridX, gridY);
         }
-        if (this.can('drawStop') && grid.isNstopAt(gridX, gridY) && s && grid.isWalkableAt(gridX,gridY)) {
+    },
+    click: function(event){
+        var coord = View.toGridCoordinate(event.pageX, event.pageY),
+            gridX = coord[0],
+            gridY = coord[1],
+            grid = this.grid;
+        if (this.can('drawStop') && grid.isNstopAt(gridX, gridY) && s && grid.isWalkableAt(gridX, gridY)) {
             this.drawStop(gridX, gridY);
             return;
         }
-        if (this.can('eraseStop') && !grid.isNStopAt(gridX, gridY) && s) {
+        if (this.can('eraseStop') && !grid.isNstopAt(gridX, gridY) && s) {
             this.eraseStop(gridX, gridY);
+            return;
         }
+
     },
     mousemove: function(event) {
         var coord = View.toGridCoordinate(event.pageX, event.pageY),
@@ -465,14 +464,6 @@ $.extend(Controller, {
             break;
         case 'erasingWall':
             this.setWalkableAt(gridX, gridY, true);
-            break;
-        case 'drawingStop':
-            if(grid.isNStopAt(gridX, griY) && grid.isWalkableAt(gridX, gridY)){
-            this.setNStopAt(gridX, gridY, false);
-            }
-            break;
-        case 'erasingStop':
-            this.setNStopAt(gridX, gridY, true);
             break;
         }
     },

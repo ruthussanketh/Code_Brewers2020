@@ -101,7 +101,7 @@ BiBreadthFirstFinder.prototype.findPath = function(startX, startY, endX, endY, g
     }
 
     // fail to find the path
-    return [];
+    return alert("No path found");
 };
 
 module.exports = BiBreadthFirstFinder;

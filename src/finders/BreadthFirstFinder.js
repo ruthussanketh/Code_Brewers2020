@@ -66,7 +66,7 @@ BreadthFirstFinder.prototype.findPath = function(startX, startY, endX, endY, gri
     }
 
     // fail to find the path
-    return [];
+    return alert("No path found");
 };
 
 module.exports = BreadthFirstFinder;

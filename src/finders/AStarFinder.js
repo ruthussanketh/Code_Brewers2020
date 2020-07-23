@@ -109,7 +109,7 @@ AStarFinder.prototype.findPath = function(startX, startY, endX, endY, grid) {
     } // end while not open list empty
 
     // fail to find the path
-    return [];
+    return alert("No path found");
 };
 
 module.exports = AStarFinder;
