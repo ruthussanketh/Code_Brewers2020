@@ -10,8 +10,9 @@ The aim of this project is to build a pathfinder that finds the shortest path be
 To view an online demo of the execution of the pathfinders, download the repo, and then open the index.html file on your browser. The index.html file is located in the visual folder.
 
 ```
-Online Demo - (https://ruthussanketh.github.io/Code_Brewers2020/visual)
+Online Demo
 ```
+(https://ruthussanketh.github.io/Code_Brewers2020/visual)
 
 Solution Functionalities
 ------------------------
@@ -64,10 +65,9 @@ Possible functionalities which can be implemented -
 1. Weighted points, where the weights stand for the safety of that position on Mars, For example, a crater, or a very hot area will have higher weight, as it is more dangerous for the rover to go over such terrain. An algorithm may then be implemented to optimize for the weighted path, leading to finding the safest path for the rover to follow.
 2. Treasure points, where rich samples of sand, etc., can be found, but where the rover need not necessarily go. An algorithm can be implemented to maximize the rover's reward/treasure, while also minimizing the distance travelled, basically, an optimum path by varying 2 parameters.
 
-Some of the visual code was used from an existing, free, and open repository, whose license has been included below.
-
 License
 -------
+Some of the visual code was used from an existing, free, and open repository, whose license has been included below.
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
 

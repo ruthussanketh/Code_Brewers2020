@@ -2,7 +2,7 @@
 
 Introduction
 ------------
-A* is an algorithm used to approximate the shortest path in real-life situations, like in maps and games where there can be many hindrances or obstacles. We consider a 2D Grid having several obstacles and we start from a source cell to reach towards a goal cell. At each step, it picks the node with the least value-‘f’, and processes that node.
+A* is an algorithm used to approximate the shortest path in real-life situations, like in maps and games where there can be many hindrances or obstacles. We consider a 2D Grid having several obstacles and we start from a source cell to reach towards a goal cell. At each step, it picks the node with the least value - f, and processes that node.
 
 ````
  f(n)  = g(n)  +  h(n)
