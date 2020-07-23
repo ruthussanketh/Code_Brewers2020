@@ -4,6 +4,7 @@
  * See https://github.com/jakesgordon/javascript-state-machine
  * for the document of the StateMachine module.
  */
+var w = 1, s = 0;
 var Controller = StateMachine.create({
     initial: 'none',
     events: [
@@ -206,6 +207,7 @@ $.extend(Controller, {
         // => modified
     },
     onreset: function(event, from, to) {
+        this.willdrawWall();
         setTimeout(function() {
             Controller.clearOperations();
             Controller.clearAll();
@@ -236,12 +238,7 @@ $.extend(Controller, {
             callback: $.proxy(this.reset, this),
         }, {
             id: 4,
-            text: 'Draw Walls',
-            enabled: true,
-            callback: $.proxy(this.willdrawWall, this),
-        }, {
-            id: 5,
-            text: 'Draw Stops',
+            text: 'Draw Stop',
             enabled: true,
             callback: $.proxy(this.willdrawStop, this),
         });
@@ -259,6 +256,7 @@ $.extend(Controller, {
    },
     onstarting: function(event, from, to) {
         console.log('=> starting');
+        this.willdrawWall();
         // Clears any existing search progress
         this.clearFootprints();
         this.setButtonStates({
