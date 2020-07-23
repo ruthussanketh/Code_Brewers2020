@@ -1,6 +1,7 @@
-var util = require('../core/Util');
+15: [
+      function (t, e) {
         
-        function Multi2_bfs(t) {
+        function r(t) {
           t = t || {
           },
           this.allowDiagonal = t.allowDiagonal,
@@ -9,9 +10,10 @@ var util = require('../core/Util');
         //var diag=t.allowDiagonal;
       var PL=10000000;
       var p=[];
-     
- 
-     Multi2_bfs.prototype.findPath=function(t, e, r, n, grid) {
+      var util = t('../core/Util');
+     // var nr=new r;
+
+     r.prototype.findPath=function(t, e, r, n, grid) {
       var s,
       a,
       u,
@@ -58,9 +60,10 @@ var util = require('../core/Util');
       }
       //alert(node.x);
       vis.set(node,1);
+      
       return prev;}
       //var f=0;
-      
+      final.push(d);
       //alert(node.x);
       var x1=multi2(node,vis,stops);
       while(x1.length){
@@ -106,13 +109,14 @@ var util = require('../core/Util');
         for(var i=0;i<prev.length;i++)final.push(prev[i]);
       }}
       var x=bfs(node,g,grid);
-      for(var i=0;i<x.length;i++)final.push(x[i]);*/
+      for(var i=0;i<x.length;i++)final.push(x[i]);
       //alert(final.length);
-     // final.push(d);
+     // final.push(d);*/
       for(var i=0;i<final.length-1;i++){
         final[i].parent=final[i+1];
+        alert(final[i].y);
       }
-     // alert(final.length);
+      alert(final[i].y);
       final[i].parent=0;
       return util.backtrace(final[0]);
         
@@ -135,7 +139,7 @@ var util = require('../core/Util');
                   t1=parent.get(t1);
                   
               }
-              x.push(t);
+              //x.push(t);
               x.reverse();
               return x;
           }
@@ -159,8 +163,13 @@ var util = require('../core/Util');
       }
       
   },
-  module.exports = r;
+  e.exports = r
+},
   
       
         
-     
+      {
+        '../core/Util': 6
+      }
+      
+    ],
