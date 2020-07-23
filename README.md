@@ -9,10 +9,7 @@ The aim of this project is to build a pathfinder that finds the shortest path be
 
 To view an online demo of the execution of the pathfinders, download the repo, and then open the index.html file on your browser. The index.html file is located in the visual folder.
 
-```
-Online Demo
-```
-(https://ruthussanketh.github.io/Code_Brewers2020/visual)
+[Online Demo](https://ruthussanketh.github.io/Code_Brewers2020/visual)
 
 Solution Functionalities
 ------------------------
