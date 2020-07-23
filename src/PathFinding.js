@@ -11,4 +11,7 @@ module.exports = {
     'BiAStarFinder'             : require('./finders/BiAStarFinder'),
     'BiBreadthFirstFinder'      : require('./finders/BiBreadthFirstFinder'),
     'BiDijkstraFinder'          : require('./finders/BiDijkstraFinder'),
+    'ClosestDestination'        : require('./finders/ClosestDestination'),
+    'Multiple Stop Nodes'       : require('./finders/MultipleStopNodes'),
+    'Multiple Visitation Nodes' : require('./finders/MultipleVisitationNodes'),
 };

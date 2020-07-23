@@ -13,7 +13,7 @@ var View = {
             fill: 'rgba(0, 0, 128, 0.4)',
             'stroke-opacity': 0.5,
         },
-        stop: {
+        stopped: {
             fill: '#EC1A89',
             'stroke-opacity': 0.9,
         },
@@ -157,9 +157,9 @@ var View = {
             color = value ? nodeStyle.normal.fill : nodeStyle.blocked.fill;
             this.setWalkableAt(gridX, gridY, value);
             break;
-        case 'stop':
-            color = value ? nodeStyle.stop.fill : nodeStyle.normal.fill;
-            this.setStopAt(gridX, gridY, value);
+        case 'nstop':
+            color = value ? nodeStyle.normal.fill : nodeStyle.stopped.fill;
+            this.setNStopAt(gridX, gridY, value);
             break;
         case 'opened':
             this.colorizeNode(this.rects[gridY][gridX], nodeStyle.opened.fill);
@@ -223,24 +223,16 @@ var View = {
             this.zoomNode(node);
         }
     },
-    setStopAt: function(gridX, gridY, value) {
+    setNstopAt: function(gridX, gridY, value) {
         var node, i, stopNodes = this.stopNodes;
-        if (stopNodes) {
+        if (!stopNodes) {
             stopNodes = this.stopNodes = new Array(this.numRows);
             for (i = 0; i < this.numRows; ++i) {
                 stopNodes[i] = [];
             }
         }
         node = stopNodes[gridY][gridX];
-        if (!value) {
-          //draw stop node
-          if (node) {
-              return;
-          }
-          node = stopNodes[gridY][gridX] = this.rects[gridY][gridX].clone();
-          this.colorizeNode(node, this.nodeStyle.stop.fill);
-          this.zoomNode(node);
-        } else {
+        if (value) {
             // clear stop node
             if (node) {
                 this.colorizeNode(node, this.rects[gridY][gridX].attr('fill'));
@@ -250,6 +242,14 @@ var View = {
                 }, this.nodeZoomEffect.duration);
                 stopNodes[gridY][gridX] = null;
             }
+        } else {
+            // draw stop node
+            if (node) {
+                return;
+            }
+            node = stopNodes[gridY][gridX] = this.rects[gridY][gridX].clone();
+            this.colorizeNode(node, this.nodeStyle.stopped.fill);
+            this.zoomNode(node);
         }
     },
     clearFootprints: function() {

@@ -43,53 +43,133 @@ var Panel = {
                                      '.bi-directional:checked').val() !=='undefined';
 
             heuristic = $('input[name=astar_heuristic]:checked').val();
+            functionality = $('input[name=astar_functionality]:checked').val();
             if (biDirectional) {
-                finder = new PF.BiAStarFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],
-                });
-            } else {
-                finder = new PF.AStarFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],
-                });
+                if(closest_destination){
+                    debugger;
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],});
+                }
+                else if(multiple_stop_nodes){
+                    finder = new PF.BiAStarFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
+                else{
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
             }
-            break;
+            else {
+              if(closest_destination){
+                  debugger;
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],});
+              }
+              else if(multiple_stop_nodes){
+                  finder = new PF.BiAStarFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+              else if(multiple_visitation_nodes){
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+            }
+        break;
 
         case 'breadthfirst_header':
             allowDiagonal = typeof $('#breadthfirst_section ' +
                                      '.allow_diagonal:checked').val() !== 'undefined';
             biDirectional = typeof $('#breadthfirst_section ' +
                                      '.bi-directional:checked').val() !== 'undefined';
+            functionality = $('input[name=breadthfirst_functionality]:checked').val();
             if (biDirectional) {
-                finder = new PF.BiBreadthFirstFinder({
-                    allowDiagonal: allowDiagonal,
-                });
-            } else {
-                finder = new PF.BreadthFirstFinder({
-                    allowDiagonal: allowDiagonal,
-                });
+                if(closest_destination){
+                    debugger;
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],});
+                }
+                else if(multiple_stop_nodes){
+                    finder = new PF.BreadthFirstFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
+                else if(multiple_visitation_nodes){
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
             }
-            break;
-
+            else {
+              if(closest_destination){
+                  debugger;
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],});
+              }
+              else if(multiple_stop_nodes){
+                  finder = new PF.BiAStarFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+              else if(multiple_visitation_nodes){
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+            }
+        break;
 
         case 'dijkstra_header':
             allowDiagonal = typeof $('#dijkstra_section ' +
                                      '.allow_diagonal:checked').val() !== 'undefined';
             biDirectional = typeof $('#dijkstra_section ' +
                                      '.bi-directional:checked').val() !=='undefined';
+            functionality = $('input[name=dijkstra_functionality]:checked').val();
             if (biDirectional) {
-                finder = new PF.BiDijkstraFinder({
-                    allowDiagonal: allowDiagonal,
-                });
-            } else {
-                finder = new PF.DijkstraFinder({
-                    allowDiagonal: allowDiagonal,
-                });
+                if(closest_destination){
+                    debugger;
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],});
+                }
+                else if(multiple_stop_nodes){
+                    finder = new PF.BiAStarFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
+                else if(multiple_visitation_nodes){
+                    finder=new PF.TraceFinder({
+                      allowDiagonal: allowDiagonal,
+                      heuristic: PF.Heuristic[heuristic],})
+                }
             }
-            break;
+            else {
+              if(closest_destination){
+                  debugger;
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],});
+              }
+              else if(multiple_stop_nodes){
+                  finder = new PF.BiAStarFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+              else if(multiple_visitation_nodes){
+                  finder=new PF.TraceFinder({
+                    allowDiagonal: allowDiagonal,
+                    heuristic: PF.Heuristic[heuristic],})
+              }
+            }
+        break;
         }
-
         return finder;
     }
 };

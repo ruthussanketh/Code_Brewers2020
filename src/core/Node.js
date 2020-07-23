@@ -5,8 +5,8 @@
  * @constructor
  * @param {number} x - The x coordinate of the node on the grid.
  * @param {number} y - The y coordinate of the node on the grid.
- * @param {boolean} [walkable] - Whether this node is walkable.
- * @param {boolean} [stop] - Whether this node is a stop point.
+ * @param {boolean} walkable [walkable] - Whether this node is walkable.
+ * @param {boolean} nstop [stop] - Whether this node is a stop point.
  */
 function Node(x, y, walkable, stop) {
     /**
@@ -28,7 +28,7 @@ function Node(x, y, walkable, stop) {
      * Whether this node is a stop point or not.
      * @type boolean
      */
-    this.stop = (stop === undefined ? false : stop);
+    this.nstop = (nstop === undefined ? true : nstop);
 
 }
 

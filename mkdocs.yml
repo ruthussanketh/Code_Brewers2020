@@ -1,8 +1,0 @@
-site_name: PathFinding.js
-repo_url: https://github.com/ruthussanketh/Code_Brewers2020
-repo_name: Code_Brewers2020
-site_description: PathFinding.js is a javascript library to find paths on a 2D square grid
-site_favicon: favicon.ico
-site_author: ruthussanketh
-
-theme: readthedocs

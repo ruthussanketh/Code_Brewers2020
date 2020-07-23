@@ -6,12 +6,12 @@ var DiagonalMovement = require('./DiagonalMovement');
  * @constructor
  * @param {number|Array<Array<(number|boolean)>>} width_or_matrix Number of columns of the grid, or matrix
  * @param {number} height Number of rows of the grid.
- * @param {Array<Array<(number|boolean)>>} [matrix] - A 0-1 matrix
- *     representing the walkable status of the nodes(0 or false for walkable).
+ * @param {Array<Array<(number|boolean)>>} walkable [matrix] - A 0-1 matrix
+ *     representing the walkable status of the nodes(1 or true for walkable).
  *     If the matrix is not supplied, all the nodes will be walkable.
- * @param {Array<Array<(number|boolean)>>} [matrix] - A 0-1 matrix
- *     representing the stop status of the nodes(1 or true for stop).
- *     If the matrix is not supplied, all the nodes will be non - stop nodes.  */
+ * @param {Array<Array<(number|boolean)>>} nstop [matrix] - A 0-1 matrix
+ *     representing the nstop status of the nodes(1 or true for nstop).
+ *     If the matrix is not supplied, none of the nodes will be stop nodes.  */
 function Grid(width_or_matrix, height, matrix) {
     var width;
 
@@ -45,10 +45,10 @@ function Grid(width_or_matrix, height, matrix) {
  * @private
  * @param {number} width
  * @param {number} height
- * @param {Array<Array<number|boolean>>} [matrix] - A 0-1 matrix representing
+ * @param {Array<Array<number|boolean>>} walkable [matrix] - A 0-1 matrix representing
  *     the walkable status of the nodes.
- * @param {Array<Array<number|boolean>>} [matrix] - A 0-1 matrix representing
- *     the stop status of the nodes.
+ * @param {Array<Array<number|boolean>>} nstop [matrix] - A 0-1 matrix representing
+ *     the nstop status of the nodes.
  * @see Grid
  */
 Grid.prototype._buildNodes = function(width, height, matrix) {
@@ -74,9 +74,18 @@ Grid.prototype._buildNodes = function(width, height, matrix) {
     for (i = 0; i < height; ++i) {
         for (j = 0; j < width; ++j) {
             if (matrix[i][j]) {
-                // 0, false, null will be walkable
+                // 1, true, null will be walkable
                 // while others will be un-walkable
-                nodes[i][j].walkable = false;
+                nodes[i][j].walkable = true;
+            }
+        }
+    }
+    for (i = 0; i < height; ++i) {
+        for (j = 0; j < width; ++j) {
+            if (matrix[i][j]) {
+                //1, true, null will be not stop
+                // while others will be stop
+                nodes[i][j].nstop = true;
             }
         }
     }
@@ -89,27 +98,30 @@ Grid.prototype.getNodeAt = function(x, y) {
     return this.nodes[y][x];
 };
 
-
 /**
  * Determine whether the node at the given position is walkable.
  * (Also returns false if the position is outside the grid.)
  * @param {number} x - The x coordinate of the node.
  * @param {number} y - The y coordinate of the node.
  * @return {boolean} - The walkability of the node.
- * @return {boolean} - The stop status of the node.
  */
 Grid.prototype.isWalkableAt = function(x, y) {
     return this.isInside(x, y) && this.nodes[y][x].walkable;
 };
-Grid.prototype.isStopAt = function(x, y) {
-    return this.isInside(x, y) && this.nodes[y][x].stop;
+
+/**
+ * Determine whether the node at the given position is a stop point.
+ * (Also returns false if the position is outside the grid.)
+ * @param {number} x - The x coordinate of the node.
+ * @param {number} y - The y coordinate of the node.
+ * @return {boolean} - The stop attribute of the node.
+ */
+Grid.prototype.isNStopAt = function(x, y) {
+    return this.isInside(x, y) && this.nodes[y][x].nstop;
 };
 
 /**
  * Determine whether the position is inside the grid.
- * XXX: `grid.isInside(x, y)` is wierd to read.
- * It should be `(x, y) is inside grid`, but I failed to find a better
- * name for this method.
  * @param {number} x
  * @param {number} y
  * @return {boolean}
@@ -125,13 +137,20 @@ Grid.prototype.isInside = function(x, y) {
  * @param {number} x - The x coordinate of the node.
  * @param {number} y - The y coordinate of the node.
  * @param {boolean} walkable - Whether the position is walkable.
- * @param {boolean} stop - Whether the position is a stop point or not.
  */
 Grid.prototype.setWalkableAt = function(x, y, walkable) {
     this.nodes[y][x].walkable = walkable;
 };
-Grid.prototype.setStopAt = function(x, y, stop) {
-    this.nodes[y][x].stop = stop;
+
+/**
+ * Set whether the node on the given position is a stop point.
+ * NOTE: throws exception if the coordinate is not inside the grid.
+ * @param {number} x - The x coordinate of the node.
+ * @param {number} y - The y coordinate of the node.
+ * @param {boolean} nstop - Whether the position is a stop point.
+ */
+Grid.prototype.setNStopAt = function(x, y, nstop) {
+    this.nodes[y][x].nstop = nstop;
 };
 
 /**

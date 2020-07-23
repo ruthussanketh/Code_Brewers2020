@@ -139,11 +139,11 @@ $.extend(Controller, {
         // => erasingWall
     },
     ondrawStop: function(event, from, to, gridX, gridY) {
-        this.setStopAt(gridX, gridY, true);
+        this.setNStopAt(gridX, gridY, false);
         // => drawingStop
     },
     oneraseStop: function(event, from, to, gridX, gridY) {
-        this.setStopAt(gridX, gridY, false);
+        this.setNStopAt(gridX, gridY, true);
         // => erasingStop
     },
     onsearch: function(event, from, to) {
@@ -231,22 +231,32 @@ $.extend(Controller, {
             enabled: false,
         }, {
             id: 3,
-            text: 'Clear Walls',
+            text: 'Clear Nodes',
             enabled: true,
             callback: $.proxy(this.reset, this),
         }, {
             id: 4,
-            text: 'Select Stops',
+            text: 'Draw Walls',
             enabled: true,
-            callback: $.proxy(this.drawStop, this),
+            callback: $.proxy(this.willdrawWall, this),
         }, {
             id: 5,
-            text: 'Clear Stops',
-            enabled: false,
-            callback: $.proxy(this.reset, this),
+            text: 'Draw Stops',
+            enabled: true,
+            callback: $.proxy(this.willdrawStop, this),
         });
         // => [starting, draggingStart, draggingEnd]
     },
+    willdrawWall: function () {
+       w = 1;
+       s = 0;
+       console.log('drawWall');
+   },
+   willdrawStop: function () {
+       w = 0;
+       s = 1;
+       console.log('drawStop');
+   },
     onstarting: function(event, from, to) {
         console.log('=> starting');
         // Clears any existing search progress
@@ -314,11 +324,6 @@ $.extend(Controller, {
             text: 'Clear Path',
             enabled: true,
             callback: $.proxy(this.clear, this),
-        }, {
-            id: 4,
-            text: 'Select Walls',
-            enabled: true,
-            callback: $.proxy(this.drawWall, this),
         });
     },
 
@@ -350,18 +355,6 @@ $.extend(Controller, {
                     x: this.x,
                     y: this.y,
                     attr: 'closed',
-                    value: v
-                });
-            },
-            get tested() {
-                return this._tested;
-            },
-            set tested(v) {
-                this._tested = v;
-                Controller.operations.push({
-                    x: this.x,
-                    y: this.y,
-                    attr: 'tested',
                     value: v
                 });
             },
@@ -429,18 +422,18 @@ $.extend(Controller, {
             this.dragEnd();
             return;
         }
-        if (this.can('drawWall') && grid.isWalkableAt(gridX, gridY)) {
+        if (this.can('drawWall') && grid.isWalkableAt(gridX, gridY) && w && grid.isNstopAt(gridX,gridY)) {
             this.drawWall(gridX, gridY);
             return;
         }
-        if (this.can('eraseWall') && !grid.isWalkableAt(gridX, gridY)) {
+        if (this.can('eraseWall') && !grid.isWalkableAt(gridX, gridY) && w) {
             this.eraseWall(gridX, gridY);
         }
-        if (this.can('drawStop') && !grid.isStopAt(gridX, gridY)) {
+        if (this.can('drawStop') && grid.isNstopAt(gridX, gridY) && s && grid.isWalkableAt(gridX,gridY)) {
             this.drawStop(gridX, gridY);
             return;
         }
-        if (this.can('eraseStop') && grid.isStopAt(gridX, gridY)) {
+        if (this.can('eraseStop') && !grid.isNStopAt(gridX, gridY) && s) {
             this.eraseStop(gridX, gridY);
         }
     },
@@ -466,17 +459,21 @@ $.extend(Controller, {
             }
             break;
         case 'drawingWall':
-            this.setWalkableAt(gridX, gridY, false);
+            if(grid.isWalkableAt(gridX, griY) && grid.isNStopAt(gridX, gridY)){
+                this.setWalkableAt(gridX, gridY, false);
+            }
             break;
         case 'erasingWall':
             this.setWalkableAt(gridX, gridY, true);
             break;
         case 'drawingStop':
-                this.setStopAt(gridX, gridY, true);
-                break;
+            if(grid.isNStopAt(gridX, griY) && grid.isWalkableAt(gridX, gridY)){
+            this.setNStopAt(gridX, gridY, false);
+            }
+            break;
         case 'erasingStop':
-                this.setStopAt(gridX, gridY, false);
-                break;
+            this.setNStopAt(gridX, gridY, true);
+            break;
         }
     },
     mouseup: function(event) {
@@ -542,9 +539,9 @@ $.extend(Controller, {
         this.grid.setWalkableAt(gridX, gridY, walkable);
         View.setAttributeAt(gridX, gridY, 'walkable', walkable);
     },
-    setStopAt: function(gridX, gridY, stop) {
-        this.grid.setStopAt(gridX, gridY, stop);
-        View.setAttributeAt(gridX, gridY, 'stop', stop);
+    setNstopAt: function(gridX, gridY, nstop) {
+        this.grid.setNstopAt(gridX, gridY, nstop);
+        View.setAttributeAt(gridX, gridY, 'nstop', nstop);
     },
     isStartPos: function(gridX, gridY) {
         return gridX === this.startX && gridY === this.startY;
