@@ -238,11 +238,8 @@ $.extend(Controller, {
             callback: $.proxy(this.reset, this),
         }, {
             id: 4,
-<<<<<<< HEAD
+
             text: 'Draw Stops',
-=======
-            text: 'Draw Stop',
->>>>>>> 1faef5679a6700c2e1cc38e6526e939163ce19c8
             enabled: true,
             callback: $.proxy(this.willdrawStop, this),
         });
