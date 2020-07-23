@@ -262,6 +262,9 @@ $.extend(Controller, {
         this.setButtonStates({
             id: 2,
             enabled: true,
+        },{
+            id: 4,
+            enabled:false,
         });
         this.search();
         // => searching
