@@ -41,7 +41,7 @@ var Panel = {
      * Get the user selected path-finder.
      */
     getFinder: function() {
-        var finder, selected_header, heuristic, allowDiagonal, biDirectional, trackRecursion, timeLimit;
+        var finder, selected_header, heuristic, allowDiagonal, biDirectional, dontCrossCorners, weight, trackRecursion, timeLimit;
 
         selected_header = $(
             '#algorithm_panel ' +
@@ -55,135 +55,115 @@ var Panel = {
                                      '.allow_diagonal:checked').val() !== 'undefined';
             biDirectional = typeof $('#astar_section ' +
                                      '.bi-directional:checked').val() !=='undefined';
+            dontCrossCorners = typeof $('#astar_section ' +
+                                     '.dont_cross_corners:checked').val() !=='undefined';
+            closest_destination = typeof $('#astar_section ' +
+                                     '.closest_destination:checked').val() !=='undefined';
+            multiple_stop = typeof $('#astar_section ' +
+                                     '.multiple_stop:checked').val() !=='undefined';
+            multiple_visitation = typeof $('#astar_section ' +
+                                     '.multiple_visitation:checked').val() !=='undefined';                         
+            /* parseInt returns NaN (which is false) if the string can't be parsed */
+            weight = parseInt($('#astar_section .spinner').val()) || 1;
+            weight = weight >= 1 ? weight : 1; /* if negative or 0, use 1 */
 
             heuristic = $('input[name=astar_heuristic]:checked').val();
-            functionality = $('input[name=astar_functionality]:checked').val();
             if (biDirectional) {
+                
+                finder = new PF.BiAStarFinder({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners,
+                    heuristic: PF.Heuristic[heuristic],
+                    weight: weight
+                });
+            } else {
                 if(closest_destination){
-                    debugger;
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],});
+                    finder=new PF.closest_destination_astar({allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners,
+                        heuristic: PF.Heuristic[heuristic],
+                        weight: weight});
                 }
-                else if(multiple_stop_nodes){
-                    finder = new PF.BiAStarFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
-                }
+                else if(multiple_stop){
+                finder = new PF.multiple_stop_astar({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners,
+                    heuristic: PF.Heuristic[heuristic],
+                    weight: weight
+                });}
                 else{
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
+                    finder = new PF.multiple_visitation_astar({
+                        allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners,
+                        heuristic: PF.Heuristic[heuristic],
+                        weight: weight
+                    }); 
                 }
             }
-            else {
-              if(closest_destination){
-                  debugger;
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],});
-              }
-              else if(multiple_stop_nodes){
-                  finder = new PF.BiAStarFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-              else if(multiple_visitation_nodes){
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-            }
-        break;
+            break;
 
         case 'breadthfirst_header':
             allowDiagonal = typeof $('#breadthfirst_section ' +
                                      '.allow_diagonal:checked').val() !== 'undefined';
             biDirectional = typeof $('#breadthfirst_section ' +
                                      '.bi-directional:checked').val() !== 'undefined';
-            functionality = $('input[name=breadthfirst_functionality]:checked').val();
-            if (biDirectional) {
+            dontCrossCorners = typeof $('#breadthfirst_section ' +
+                                     '.dont_cross_corners:checked').val() !=='undefined';
+            closest_destination = typeof $('#breadthfirst_section ' +
+                                     '.closest_destination:checked').val() !=='undefined';
+            multiple_stop = typeof $('#breadthfirst_section ' +
+                                     '.multiple_stop:checked').val() !=='undefined';
+            multiple_visitation = typeof $('#breadthfirst_section ' +
+                                     '.multiple_visitation:checked').val() !=='undefined';
+             if (biDirectional) {
+                
+                finder = new PF.BreadthFirstFinder({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners
+                });
+            } else {
                 if(closest_destination){
-                    debugger;
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],});
+                    finder=new PF.closest_destination_bfs({
+                        allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners});
                 }
-                else if(multiple_stop_nodes){
-                    finder = new PF.BreadthFirstFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
-                }
-                else if(multiple_visitation_nodes){
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
+
+                
+                else  if(multiple_stop){
+                finder = new PF.multiple_stop_bfs({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners
+                });}
+                else{
+                    finder = new PF.multiple_visitation_bfs({
+                        allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners
+                    });
                 }
             }
-            else {
-              if(closest_destination){
-                  debugger;
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],});
-              }
-              else if(multiple_stop_nodes){
-                  finder = new PF.BiAStarFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-              else if(multiple_visitation_nodes){
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-            }
-        break;
+            break;
+
 
         case 'dijkstra_header':
             allowDiagonal = typeof $('#dijkstra_section ' +
                                      '.allow_diagonal:checked').val() !== 'undefined';
             biDirectional = typeof $('#dijkstra_section ' +
                                      '.bi-directional:checked').val() !=='undefined';
-            functionality = $('input[name=dijkstra_functionality]:checked').val();
+            dontCrossCorners = typeof $('#dijkstra_section ' +
+                                     '.dont_cross_corners:checked').val() !=='undefined';
             if (biDirectional) {
-                if(closest_destination){
-                    debugger;
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],});
-                }
-                else if(multiple_stop_nodes){
-                    finder = new PF.BiAStarFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
-                }
-                else if(multiple_visitation_nodes){
-                    finder=new PF.TraceFinder({
-                      allowDiagonal: allowDiagonal,
-                      heuristic: PF.Heuristic[heuristic],})
-                }
+                finder = new PF.BiDijkstraFinder({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners
+                });
+            } else {
+                finder = new PF.DijkstraFinder({
+                    allowDiagonal: allowDiagonal,
+                    dontCrossCorners: dontCrossCorners
+                });
             }
-            else {
-              if(closest_destination){
-                  debugger;
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],});
-              }
-              else if(multiple_stop_nodes){
-                  finder = new PF.BiAStarFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-              else if(multiple_visitation_nodes){
-                  finder=new PF.TraceFinder({
-                    allowDiagonal: allowDiagonal,
-                    heuristic: PF.Heuristic[heuristic],})
-              }
-            }
-        break;
+            break;
         }
+
         return finder;
     }
 };
