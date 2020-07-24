@@ -1,5 +1,4 @@
-	
-	var util = require('../core/Util');
+var util = require('../core/Util');
 var heuristic = require('../core/Heuristic');
 var DiagonalMovement = require('../core/DiagonalMovement');
 
