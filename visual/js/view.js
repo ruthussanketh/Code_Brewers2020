@@ -157,7 +157,7 @@ var View = {
             color = value ? nodeStyle.normal.fill : nodeStyle.blocked.fill;
             this.setWalkableAt(gridX, gridY, value);
             break;
-        case 'nstop':
+        case 'Nstop':
             color = value ? nodeStyle.normal.fill : nodeStyle.stopped.fill;
             this.setNstopAt(gridX, gridY, value);
             break;
