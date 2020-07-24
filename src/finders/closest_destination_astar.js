@@ -7,7 +7,7 @@ function closest_destination_astar(opt) {
     opt = opt || {},
         this.allowDiagonal = opt.allowDiagonal,
 
-        this.heuristic = opt.heuristic || heuristic.manhattan,
+        this.heuristic = opt.heuristic || heuristic.manhattan
 }
 
 var heuristic = this.heuristic,
