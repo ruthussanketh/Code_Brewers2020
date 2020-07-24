@@ -54,7 +54,7 @@ The algorithms implemented to find the least expensive path with a definite end 
 
 Supporting Documents
 --------------------
-Supporting docs, including a high level diagram, a low level diagram, and control flow explanations of each of the algorithms used above been included in the ./docs folder.
+Supporting docs, including a high level diagram, a low level diagram, explanations of the states in the dynamic online interface, and control flow explanations of each of the algorithms used above been included in the ./docs folder.
 
 Future Possible Functionalities
 -------------------------------

@@ -22,6 +22,20 @@ var Panel = {
             top: $algo.offset().top + $algo.outerHeight() + 20
         });
         $('#button2').attr('disabled', 'disabled');
+        $('#hide_instructions').click(function(hide_instructions_clicked) {
+          $('#show_instructions').show();
+        });
+        $('#hide_algorithms').click(function(hide_algorithms_clicked) {
+          $('#show_algorithms').show();
+        });
+        $('#show_algorithms').click(function() {
+            $('#algorithm_panel').slideDown();
+            $('#show_algorithms').hide();
+        });
+        $('#show_instructions').click(function() {
+            $('#instructions_panel').slideDown();
+            $('#show_instructions').hide();
+        });
     },
     /**
      * Get the user selected path-finder.
