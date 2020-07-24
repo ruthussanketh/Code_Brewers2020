@@ -7,7 +7,7 @@ function multiple_stop_astar(opt) {
     opt = opt || {},
         this.allowDiagonal = opt.allowDiagonal,
 
-        this.heuristic = opt.heuristic || Heuristic.manhattan,
+        this.heuristic = opt.heuristic || heuristic.manhattan,
         this.weight = opt.weight || 1
 }
 
