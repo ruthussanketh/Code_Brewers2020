@@ -62,10 +62,7 @@ var Panel = {
             multiple_stop = typeof $('#astar_section ' +
                                      '.multiple_stop:checked').val() !=='undefined';
             multiple_visitation = typeof $('#astar_section ' +
-                                     '.multiple_visitation:checked').val() !=='undefined';                         
-            /* parseInt returns NaN (which is false) if the string can't be parsed */
-            weight = parseInt($('#astar_section .spinner').val()) || 1;
-            weight = weight >= 1 ? weight : 1; /* if negative or 0, use 1 */
+                                     '.multiple_visitation:checked').val() !=='undefined';  
 
             heuristic = $('input[name=astar_heuristic]:checked').val();
             if (biDirectional) {
@@ -79,31 +76,23 @@ var Panel = {
             } else {
                 if(closest_destination){
                     finder=new PF.closest_destination_astar({allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners,
-                        heuristic: PF.Heuristic[heuristic],
-                        weight: weight});
+                        heuristic: PF.Heuristic[heuristic],});
                 }
                 else if(multiple_stop){
                 finder = new PF.multiple_stop_astar({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners,
                     heuristic: PF.Heuristic[heuristic],
-                    weight: weight
                 });}
                 else if(multiple_visitation){
                     finder = new PF.multiple_visitation_astar({
                         allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners,
                         heuristic: PF.Heuristic[heuristic],
-                        weight: weight
                     }); 
                 }
                 else{
                     finder = new PF.AStarFinder({
                         allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners,
                         heuristic: PF.Heuristic[heuristic],
-                        weight: weight
                     }); 
 
                 }
@@ -125,35 +114,29 @@ var Panel = {
                                      '.multiple_visitation:checked').val() !=='undefined';
              if (biDirectional) {
                 
-                finder = new PF.BreadthFirstFinder({
+                finder = new PF.BiBreadthFirstFinder({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners
                 });
             } else {
                 if(closest_destination){
                     finder=new PF.closest_destination_bfs({
-                        allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners});
+                        allowDiagonal: allowDiagonal,});
                 }
 
                 
                 else  if(multiple_stop){
                 finder = new PF.multiple_stop_bfs({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners
                 });}
                 else if(multiple_visitation){
                     finder = new PF.multiple_visitation_bfs({
                         allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners
                     });
                 }
                 else{
                     finder = new PF.BreadthFirstFinder({
                         allowDiagonal: allowDiagonal,
-                        dontCrossCorners: dontCrossCorners,
                         heuristic: PF.Heuristic[heuristic],
-                        weight: weight
                     }); 
                 }
             }
@@ -170,12 +153,10 @@ var Panel = {
             if (biDirectional) {
                 finder = new PF.BiDijkstraFinder({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners
                 });
             } else {
                 finder = new PF.DijkstraFinder({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners
                 });
             }
             break;
