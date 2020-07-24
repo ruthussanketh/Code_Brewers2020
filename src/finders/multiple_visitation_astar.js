@@ -40,13 +40,13 @@ multiple_visitation_astar.prototype.findPath = function(startX, startY, endX, en
         var final = [];
 
         var node = start;
-        multi2_astar = function(start, vis, stops, grid, diag, heur) {
+        multi2_astar = function(start, vis, stops, grid, diagonalMovement, heuristic) {
             var prev = [];
             var pr = 100000000;
             var node = start;
             for (var i = 0; i < stops.length; i++) {
                 if (!(vis.has(stops[i])) || !(vis.get(stops[i]))) {
-                    var x = ast(start.x, start.y, stops[i].x, stops[i].y, grid, diag, heur);
+                    var x = ast(start.x, start.y, stops[i].x, stops[i].y, grid, diagonalMovement, heuristic);
                     if (x.length < pr) {
                         pr = x.length;
                         prev = x;
