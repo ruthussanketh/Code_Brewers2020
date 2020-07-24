@@ -449,15 +449,6 @@ $.extend(Controller, {
             return;
         }
         
-        //if (this.can('drawStop') && grid.isNstopAt(gridX, gridY) && s && grid.isWalkableAt(gridX,gridY)) {
-          //  this.drawStop(gridX, gridY);
-          //  return;
-        //}
-        //if (this.can('eraseStop') && !grid.isNstopAt(gridX, gridY) && s) {
-        //    this.eraseStop(gridX, gridY);
-        //    return;
-        //}
-        
     },
     click: function(event){
         var coord = View.toGridCoordinate(event.pageX, event.pageY),
@@ -503,13 +494,6 @@ $.extend(Controller, {
         case 'erasingWall':
             this.setWalkableAt(gridX, gridY, true);
             break;
-        
-        //case 'drawingStop':
-          //  if (this.isWalkableAt) { this.setNstopAt(gridX, gridY, false); }
-        //break;
-        //case 'erasingStop':
-        //    this.setNstopAt(gridX, gridY, true);
-        //    break;
         }
     },
     mouseup: function(event) {
@@ -576,9 +560,9 @@ $.extend(Controller, {
         this.grid.setWalkableAt(gridX, gridY, walkable);
         View.setAttributeAt(gridX, gridY, 'walkable', walkable);
     },
-    setNstopAt: function(gridX, gridY, walkable) {
-        this.grid.setNstopAt(gridX, gridY, walkable);
-        View.setAttributeAt(gridX, gridY, 'Nstop', walkable);
+    setNstopAt: function(gridX, gridY, nstop) {
+        this.grid.setNstopAt(gridX, gridY, nstop);
+        View.setAttributeAt(gridX, gridY, 'Nstop', nstop);
     },
     isStartPos: function(gridX, gridY) {
         return gridX === this.startX && gridY === this.startY;
