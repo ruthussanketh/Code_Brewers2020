@@ -159,7 +159,7 @@ var View = {
             break;
         case 'nstop':
             color = value ? nodeStyle.normal.fill : nodeStyle.stopped.fill;
-            this.setNStopAt(gridX, gridY, value);
+            this.setNstopAt(gridX, gridY, value);
             break;
         case 'opened':
             this.colorizeNode(this.rects[gridY][gridX], nodeStyle.opened.fill);
