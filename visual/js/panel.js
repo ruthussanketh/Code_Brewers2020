@@ -90,13 +90,22 @@ var Panel = {
                     heuristic: PF.Heuristic[heuristic],
                     weight: weight
                 });}
-                else{
+                else if(multiple_visitation){
                     finder = new PF.multiple_visitation_astar({
                         allowDiagonal: allowDiagonal,
                         dontCrossCorners: dontCrossCorners,
                         heuristic: PF.Heuristic[heuristic],
                         weight: weight
                     }); 
+                }
+                else{
+                    finder = new PF.AStarFinder({
+                        allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners,
+                        heuristic: PF.Heuristic[heuristic],
+                        weight: weight
+                    }); 
+
                 }
             }
             break;
@@ -133,11 +142,19 @@ var Panel = {
                     allowDiagonal: allowDiagonal,
                     dontCrossCorners: dontCrossCorners
                 });}
-                else{
+                else if(multiple_visitation){
                     finder = new PF.multiple_visitation_bfs({
                         allowDiagonal: allowDiagonal,
                         dontCrossCorners: dontCrossCorners
                     });
+                }
+                else{
+                    finder = new PF.BreadthFirstFinder({
+                        allowDiagonal: allowDiagonal,
+                        dontCrossCorners: dontCrossCorners,
+                        heuristic: PF.Heuristic[heuristic],
+                        weight: weight
+                    }); 
                 }
             }
             break;
