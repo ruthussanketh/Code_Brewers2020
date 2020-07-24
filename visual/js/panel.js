@@ -62,7 +62,9 @@ var Panel = {
             multiple_stop = typeof $('#astar_section ' +
                                      '.multiple_stop:checked').val() !=='undefined';
             multiple_visitation = typeof $('#astar_section ' +
-                                     '.multiple_visitation:checked').val() !=='undefined';  
+                                     '.multiple_visitation:checked').val() !=='undefined'; 
+            standard = typeof $('#astar_section ' +
+                                     '.standard:checked').val() !=='undefined'; 
 
             heuristic = $('input[name=astar_heuristic]:checked').val();
             if (biDirectional) {
@@ -112,6 +114,8 @@ var Panel = {
                                      '.multiple_stop:checked').val() !=='undefined';
             multiple_visitation = typeof $('#breadthfirst_section ' +
                                      '.multiple_visitation:checked').val() !=='undefined';
+            standard = typeof $('#breadthfirst_section ' +
+                                     '.standard:checked').val() !=='undefined';
              if (biDirectional) {
                 
                 finder = new PF.BiBreadthFirstFinder({
