@@ -12,7 +12,7 @@
       var p=[];
     
      
-     multiple_visitation_bfs.prototype.findPath=function(startx,starty,endx,endy, grid) {//t=start e=sty, r=endx n=end y
+     multiple_visitation_bfs.prototype.findPath=function(startx,starty,endx,endy, grid) {
 
       c = this.allowDiagonal,
       start = grid.getNodeAt(startx,starty),
