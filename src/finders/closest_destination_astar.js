@@ -8,12 +8,10 @@ function closest_destination_astar(opt) {
         this.allowDiagonal = opt.allowDiagonal,
 
         this.heuristic = opt.heuristic || heuristic.manhattan,
-        this.weight = opt.weight || 1
 }
 
 var heuristic = this.heuristic,
     diagonalMovement = this.allowDiagonal,
-    weight = this.weight,
     abs = Math.abs,
     SQRT2 = Math.SQRT2;
 
