@@ -14,7 +14,7 @@
      
      multiple_visitation_bfs.prototype.findPath=function(startx,starty,endx,endy, grid) {
 
-      c = this.allowDiagonal,
+      diagonalMovement = this.allowDiagonal,
       start = grid.getNodeAt(startx,starty),
       end = grid.getNodeAt(endx,endy);
       var stops=[];
