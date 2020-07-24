@@ -4,3 +4,6 @@ var DiagonalMovement = {
 };
 
 module.exports = DiagonalMovement;
+
+//always enables diagonal movement
+//never disables diagonal movement
