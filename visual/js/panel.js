@@ -71,9 +71,7 @@ var Panel = {
                 
                 finder = new PF.BiAStarFinder({
                     allowDiagonal: allowDiagonal,
-                    dontCrossCorners: dontCrossCorners,
                     heuristic: PF.Heuristic[heuristic],
-                    weight: weight
                 });
             } else {
                 if(closest_destination){
