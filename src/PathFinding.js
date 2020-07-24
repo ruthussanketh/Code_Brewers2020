@@ -13,8 +13,8 @@ module.exports = {
     'BiDijkstraFinder'          : require('./finders/BiDijkstraFinder'),
     'ClosestDestinationAStar'   : require('./finders/closest_destination_astar'),
     'ClosestDestinationBFS'     : require('./finders/closest_destination_bfs'),
-    'MultipleStopAStar'         : require('./finders/multiple_stop_astar),
-    'MultipleStopBFS'           : require('./finders/multiple_stop_bfs),
-    'MultipleVisitationAStar'   : require('./finders/multiple_visitation_astar), 
-    'MultipleVisitationBFS'     : require('./finders/multiple_visitation_bfs),
+    'MultipleStopAStar'         : require('./finders/multiple_stop_astar'),
+    'MultipleStopBFS'           : require('./finders/multiple_stop_bfs'),
+    'MultipleVisitationAStar'   : require('./finders/multiple_visitation_astar'), 
+    'MultipleVisitationBFS'     : require('./finders/multiple_visitation_bfs'),
 };
