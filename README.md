@@ -7,7 +7,7 @@ Introduction
 
 The aim of this project is to build a pathfinder that finds the shortest path between two or multiple points and integrate it into finding and solving more complex problems that may be encountered by a Mars Rover on Mars.
 
-To view an online demo of the execution of the pathfinders, download the repo, and then open the index.html file on your browser. The index.html file is located in the visual folder.
+To view an online demo of the execution of the pathfinders, download the repo, and then open the index.html file on your browser. The index.html file is located in the visual folder. This demo works on Microsoft Edge, Google Chrome, Firefox, and Safari.
 
 [Online Demo](https://ruthussanketh.github.io/Code_Brewers2020/visual)
 
@@ -54,7 +54,7 @@ The algorithms implemented to find the least expensive path with a definite end 
 
 Supporting Documents
 --------------------
-Supporting docs, including a high level diagram, a low level diagram, explanations of the states in the dynamic online interface, and control flow explanations of each of the algorithms used above been included in the ./docs folder.
+Supporting docs, including a high level diagram (HLD), a low level diagram (LLD), explanations of the states in the dynamic online interface, and control flow explanations of each of the algorithms used above been included in the ./docs folder. We have made use of existing libraries such as StateMachine.js to process various inputs and states and Raphael.js to create the SVG (scalable vector graphic) scenes programmatically. 
 
 Future Possible Functionalities
 -------------------------------

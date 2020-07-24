@@ -36,7 +36,6 @@ function BiAStarFinder(opt) {
     } else {
         this.heuristic = Heuristic.chebyshev;
     }
-}
 
 /**
  * Find and return the the path.

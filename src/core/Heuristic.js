@@ -32,4 +32,5 @@ module.exports = {
    */
    chebyshev: function(dx, dy) {
        return max(Math.sqrt(dx * dx), Math.sqrt(dy * dy));
-};
+},
+}
