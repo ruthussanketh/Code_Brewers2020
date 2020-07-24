@@ -1,10 +1,10 @@
 
         var util  = require('../core/Util');
         var DiagonalMovement = require('../core/DiagonalMovement');
-        function multiple_visitation_bfs(t) {
-          t = t || {
+        function multiple_visitation_bfs(opt) {
+          opt = opt || {
           },
-          this.allowDiagonal = t.allowDiagonal
+          this.allowDiagonal = opt.allowDiagonal
           
         }
         
@@ -82,7 +82,7 @@
       
       
   bfs=  function(start,end,grid,diag){//function for finding the min path b/w start and end nodes
-    var x=[];
+      var x=[];
       var vi=new Map([[start,1]]);//visited map
       var parent=new Map([]);//parent map
       var queue=[];
