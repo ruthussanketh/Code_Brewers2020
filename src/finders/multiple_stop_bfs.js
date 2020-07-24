@@ -41,10 +41,6 @@
       return e;
       
     }
-    
-  
- 
-
   
     bfs3=  function(start,end,grid,diag){ //finding shortest path b/w start and end nodes
       var x=[];
