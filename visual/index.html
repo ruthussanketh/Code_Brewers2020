@@ -48,7 +48,7 @@
       Click Start Search in the lower-right corner to start the animation. <br>
       Bidirectional finder works only on the standard functionality.
     </div>
-    
+
      <div id="show_algorithms_panel" class="panel">
       <span id="show_algorithms"style="display:none">show</span>
     </div>
@@ -86,7 +86,7 @@
             <h3>Functionality</h3>
           </header>
           <div class="added_functionality">
-            <input type="radio" name="astar_functionality" class="standard" checked />
+            <input type="radio" id = "standard" name="astar_functionality"onclick="standard_clicked()"class="standard" autocomplete="off"/>
             <label class="option_label">Standard</label> <br>
             <input type="radio" name="astar_functionality" class="closest_destination" autocomplete="off">
             <label class="option_label">Closest Destination</label> <br>
@@ -113,7 +113,7 @@
             <h3>Functionality</h3>
           </header>
           <div class="added_functionality">
-            <input type="radio" name="breadthfirst_functionality" class="standard" checked />
+            <input type="radio" name="breadthfirst_functionality" class="standard" autocomplete="off"/>
             <label class="option_label">Standard</label> <br>
             <input type="radio" name="breadthfirst_functionality" class="closest_destination" autocomplete="off">
             <label class="option_label">Closest Destination</label> <br>
@@ -130,7 +130,7 @@
             <h3>Options</h3>
           </header>
           <div class="optional sub_options">
-            <input type="checkbox" class="allow_diagonal" checked>
+            <input type="checkbox" class="allow_diagonal" autocomplete="off">
             <label class="option_label">Allow Diagonal</label> <br>
             <input type="checkbox" class="bi-directional">
             <label class="option_label">Bi-directional</label> <br>
