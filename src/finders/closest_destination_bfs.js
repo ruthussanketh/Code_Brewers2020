@@ -4,7 +4,6 @@
           t = t || {
           },
           this.allowDiagonal = t.allowDiagonal,
-          this.dontCrossCorners = t.dontCrossCorners
         }
         
         closest_destination_bfs.prototype.findPath = function (startx, starty, endx, endy, grid) {
