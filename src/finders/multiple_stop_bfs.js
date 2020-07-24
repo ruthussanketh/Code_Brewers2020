@@ -1,9 +1,9 @@
        var DiagonalMovement = require('../core/DiagonalMovement');
        var util  = require('../core/Util'); 
-        function multiple_stop_bfs(t) {
-          t = t || {
+        function multiple_stop_bfs(opt) {
+          opt = opt || {
           },
-          this.allowDiagonal = t.allowDiagonal
+          this.allowDiagonal = opt.allowDiagonal
           
         }
      
@@ -12,7 +12,7 @@
 
 
 
-     multiple_stop_bfs.prototype.findPath=function(startx, starty, endx, endy, grid) {//t=startx,e=starty,r=endx,o=endy
+     multiple_stop_bfs.prototype.findPath=function(startx, starty, endx, endy, grid) {
       
       var start = grid.getNodeAt(startx,starty),
       end = grid.getNodeAt(endx, endy);
@@ -25,9 +25,9 @@
       if(grid.isNstopAt(j,i)==0){l++;stops.push(grid.getNodeAt(j,i));}
       }
       }
-      var vis=new Map([[start,1]]);
+      var vis=new Map([[start,1]]);//visited map
    
-      var par =new Map([[start,-1]]);
+      var par =new Map([[start,-1]]);//parent map
       var x=algo(start,stops,grid,vis,par,this.allowDiagonal);//final array e storing shortest path
  
       var e = [ [x[0].x,x[0].y]; 
@@ -44,8 +44,8 @@
   
     bfs3=  function(start,end,grid,diag){ //finding shortest path b/w start and end nodes
       var x=[];
-        var vi=new Map([[start,1]]);
-        var parent=new Map([]);
+        var vi=new Map([[start,1]]);//visited map
+        var parent=new Map([]); //parent map
         var queue=[];
         queue.push(start);
         while(queue.length){
