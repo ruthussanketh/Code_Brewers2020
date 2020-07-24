@@ -11,7 +11,7 @@ before searching; all walls present - state W
 - **Clear Walls** - to B
 - **Draw Stops** - to St
 
-Clicking Draw Stop Button - to St
+clicking Draw Stop Button - to St
 
 before searching; drawing stop positions rather than walls by clicking - state St
 - **Start Search** - to N
