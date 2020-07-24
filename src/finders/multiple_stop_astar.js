@@ -1,5 +1,4 @@
-        
-	var util = require('../core/Util');
+var util = require('../core/Util');
 var heuristic = require('../core/Heuristic');
 var DiagonalMovement = require('../core/DiagonalMovement');
 
@@ -7,15 +6,12 @@ function multiple_stop_astar(opt) {
     opt = opt || {},
         this.allowDiagonal = opt.allowDiagonal,
 
-        this.heuristic = opt.heuristic || heuristic.manhattan,
-        this.weight = opt.weight || 1
+        this.heuristic = opt.heuristic || heuristic.manhattan
 }
 
 
 var heuristic = this.heuristic,
     diagonalMovement = this.allowDiagonal,
-
-    weight = this.weight,
     abs = Math.abs,
     SQRT2 = Math.SQRT2;
 var p = [];
