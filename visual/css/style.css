@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6 {
 #instructions_panel {
     top: 20px;
     left: 20px;
-    width: 470px;
+    width: 480px;
 }
 
 #hide_instructions {
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 #show_instructions_panel {
     top: 20px;
     left: 20px;
-    width: 470px;
+    width: 480px;
 }
 
 #show_instructions {
