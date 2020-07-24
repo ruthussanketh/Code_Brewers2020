@@ -1,5 +1,5 @@
-
-       	var util  = require('../core/Util'); 
+       var DiagonalMovement = require('../core/DiagonalMovement');
+       var util  = require('../core/Util'); 
         function multiple_stop_bfs(t) {
           t = t || {
           },
@@ -12,40 +12,25 @@
 
 
 
-     multiple_stop_bfs.prototype.findPath=function(t, e, r, n, grid) {//t=startx,e=starty,r=endx,o=endy
-      var s,
-      a,
-      u,
-      h,
-      l,
-      p = [
-      ],
-      c = this.allowDiagonal,
-      f = this.dontCrossCorners,
-      d = grid.getNodeAt(t, e),
-      g = grid.getNodeAt(r, n);
+     multiple_stop_bfs.prototype.findPath=function(startx, starty, endx, endy, grid) {//t=startx,e=starty,r=endx,o=endy
+      
+      var start = grid.getNodeAt(startx,starty),
+      end = grid.getNodeAt(endx, endy);
       var stops=[];
       var l=1;
-      
-     
-      stops.push(grid.getNodeAt(r,n));
-   
-      
+      stops.push(end);
       for(var i=0;i<40;i++){
 
       for(var j=0;j<60;j++){
       if(grid.isNstopAt(j,i)==0){l++;stops.push(grid.getNodeAt(j,i));}
       }
       }
-      var vis=new Map([[d,1]]);
+      var vis=new Map([[start,1]]);
    
-      var par =new Map([[d,-1]]);
-      var x=algo(d,stops,grid,vis,par,this.allowDiagonal);
+      var par =new Map([[start,-1]]);
+      var x=algo(start,stops,grid,vis,par,this.allowDiagonal);//final array e storing shortest path
  
-      var e = [
-        [x[0].x,
-        x[0].y]
-      ]; 
+      var e = [ [x[0].x,x[0].y]; 
       
       for(var i=1;i<x.length;i++){
           e.push([x[i].x,x[i].y]);
@@ -71,11 +56,10 @@
             var t1=queue.shift();
             if(t1==end){
 
-                
                 while(t1!=start){
                     x.push(t1);
                     t1=parent.get(t1);
-                    
+                
                 }
                 
                 return x;
@@ -100,7 +84,7 @@
         }
         
     }
-    algo=function (start,dest,grid,vis,par,diag){//recursive function for brute force
+    algo=function (start,dest,grid,vis,par,diag){ //recursive function for brute force
       var f=0;
       
 
