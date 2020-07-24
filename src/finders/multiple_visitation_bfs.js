@@ -1,5 +1,6 @@
 
-        var util  = require('../core/Util'); 
+        var util  = require('../core/Util');
+        var DiagonalMovement = require('../core/DiagonalMovement');
         function multiple_visitation_bfs(t) {
           t = t || {
           },
@@ -11,36 +12,27 @@
       var p=[];
     
      
-     multiple_visitation_bfs.prototype.findPath=function(t, e, r, n, grid) {
-      var s,
-      a,
-      u,
-      h,
-      l,
-      p = [
-      ],
+     multiple_visitation_bfs.prototype.findPath=function(startx,starty,endx,endy, grid) {//t=start e=sty, r=endx n=end y
+
       c = this.allowDiagonal,
-     
-      d = grid.getNodeAt(t, e),
-      g = grid.getNodeAt(r, n);
+      start = grid.getNodeAt(startx,starty),
+      end = grid.getNodeAt(endx,endy);
       var stops=[];
-      var l=1;
-      
      
       for(var i=0;i<40;i++){
 
       for(var j=0;j<60;j++){
-      if(grid.isNstopAt(j,i)==0){l++;stops.push(grid.getNodeAt(j,i));}
+      if(grid.isNstopAt(j,i)==0){stops.push(grid.getNodeAt(j,i));}
       }
       }
-      var vis=new Map([[d,1]]);
+      var vis=new Map([[start,1]]); //visited map
      
-      var par =new Map([[d,-1]]);
+      var par =new Map([[start,-1]]);//parent map
       var final=[];
       
-      var node=d;
+      var node=start;
       multi2=function(start,vis,stops,grid,diag){ //greedy function choosing the nearest node from start node
-        var prev=[];
+       var prev=[];
       var pr=100000000;
       var node=start;
       for(var i=0;i<stops.length;i++){
@@ -57,12 +49,10 @@
       
       return prev;}
      
-      final.push(d);
-      
+      final.push(start);
       var x1=multi2(node,vis,stops,grid,this.allowDiagonal);
       while(x1.length){
-       
-       
+
        for(var i=0;i<x1.length-1;i++){final.push(x1[i]);}
        final.push(x1[i]);
        node=final[final.length-1];
@@ -70,7 +60,7 @@
        x1=multi2(node,vis,stops,grid,this.allowDiagonal);
       }
       
-      var ff=bfs(node,g,grid,this.allowDiagonal);
+      var ff=bfs(node,end,grid,this.allowDiagonal);
   
        for(var i=0;i<ff.length;i++){final.push(ff[i]);}
      
@@ -93,15 +83,15 @@
       
   bfs=  function(start,end,grid,diag){//function for finding the min path b/w start and end nodes
     var x=[];
-      var vi=new Map([[start,1]]);
-      var parent=new Map([]);
+      var vi=new Map([[start,1]]);//visited map
+      var parent=new Map([]);//parent map
       var queue=[];
       queue.push(start);
       while(queue.length){
           var t1=queue.shift();
           if(t1==end){
 
-              
+              //storing the shoretst path in an array
               while(t1!=start){
                   x.push(t1);
                   t1=parent.get(t1);
