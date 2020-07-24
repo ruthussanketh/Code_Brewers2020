@@ -140,11 +140,11 @@ $.extend(Controller, {
         // => erasingWall
     },
     ondrawStop: function(event, from, to, gridX, gridY) {
-        this.setNStopAt(gridX, gridY, false);
+        this.setNstopAt(gridX, gridY, false);
         // => drawingStop
     },
     oneraseStop: function(event, from, to, gridX, gridY) {
-        this.setNStopAt(gridX, gridY, true);
+        this.setNstopAt(gridX, gridY, true);
         // => erasingStop
     },
     onsearch: function(event, from, to) {
