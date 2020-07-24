@@ -464,7 +464,7 @@ $.extend(Controller, {
             }
             break;
         case 'drawingWall':
-            if(grid.isWalkableAt(gridX, griY) && grid.isNStopAt(gridX, gridY)){
+            if(grid.isWalkableAt(gridX, griY) && grid.isNstopAt(gridX, gridY)){
                 this.setWalkableAt(gridX, gridY, false);
             }
             break;
